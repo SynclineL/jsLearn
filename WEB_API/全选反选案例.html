@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 1px solid #c0c0c0;
+      width: 500px;
+      margin: 100px auto;
+      text-align: center;
+    }
+
+    th {
+      background-color: #09c;
+      font: bold 16px "微软雅黑";
+      color: #fff;
+      height: 24px;
+    }
+
+    td {
+      border: 1px solid #d0d0d0;
+      color: #404060;
+      padding: 10px;
+    }
+
+    .allCheck {
+      width: 80px;
+    }
+
+    .ck:checked, #checkAll:checked {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th class="allCheck">
+        <input type="checkbox" name="" id="checkAll"> <span class="all">全选</span>
+      </th>
+      <th>商品</th>
+      <th>商家</th>
+      <th>价格</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="check" class="ck">
+      </td>
+      <td>小米手机</td>
+      <td>小米</td>
+      <td>￥1999</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="check" class="ck">
+      </td>
+      <td>小米净水器</td>
+      <td>小米</td>
+      <td>￥4999</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="check" class="ck">
+      </td>
+      <td>小米电视</td>
+      <td>小米</td>
+      <td>￥5999</td>
+    </tr>
+  </table>
+  <script>
+    //1.获取元素
+    const checkAll = document.querySelector('#checkAll')
+    const cks = document.querySelectorAll('.ck')
+    // 2.注册大框事件
+    checkAll.addEventListener('click', function () {
+      console.log(checkAll.checked);
+      // 3.让所有小框的状态和大框相同
+      for (let i = 0; i < cks.length; i++) {
+        cks[i].checked = checkAll.checked
+      }
+    })
+    // 4.遍历所有小框,绑定点击事件
+    let flag = false
+    let trueNum = 0
+    for (let i = 0; i < cks.length; i++) {
+      cks[i].addEventListener('click', function () {
+        // 4.只要触发了小框的点击事件,就去检查所有小框的状态
+        // 方法一:每次先设置小框true的数量为零
+        //   trueNum = 0
+        //   // 遍历检查小框的checked状态
+        //   for (let j = 0; j < cks.length; j++) {
+        //     if (cks[j].checked === true) {
+        //       trueNum++
+        //     }else {
+        //       trueNum--
+        //     }
+        //   }
+
+        //   // 如果小框true全选了,设置大框true
+        //   if (trueNum === cks.length) {
+        //     checkAll.checked = true
+        //   }else {                     //否则,设置为false
+        //     checkAll.checked = false
+        //   }
+        // })
+
+        // 方法二:直接用.ck:checked伪类选择器
+        console.log(document.querySelectorAll('.ck:checked').length);
+        checkAll.checked = document.querySelectorAll('.ck:checked').length === cks.length
+
+      }
+      )
+    }
+
+  </script>
+</body>
+
+</html>
